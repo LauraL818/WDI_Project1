@@ -19,6 +19,14 @@ $(function (){
     {
       body: 'Who is your favorite athlete?',
       answers: [
+        'dave',
+        'alex',
+        'frank'
+        ]
+    },
+    {
+      body: 'Who is your favorite athlete?',
+      answers: [
         'joe',
         'bob',
         'todd'
