@@ -1,5 +1,6 @@
-# Project Name
+# Project Name  
 
+No installation necessary. Follow this link to start playing (game link)  
 ## Game Summary
 Put your sports knowledge to the test with (Game Name). Answer correctly and bask in the glory of the cheers. Answer incorrectly and endure the relentless boos. First player to 10 goals wins ultimate sports bragging rights.
 
@@ -17,6 +18,4 @@ Put your sports knowledge to the test with (Game Name). Answer correctly and bas
 * When a player reaches 10 points, they win the match and a new game can be played
 
 ## Wireframe
-(photo url)
-
-No installation necessary. Follow this link to start playing (game link)
+![Project Outline](/assets/wireframe.png)
