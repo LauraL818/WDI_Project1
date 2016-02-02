@@ -25,35 +25,18 @@
       currentPlayer = player1
     }
   }
-  // function askQuestion () {
-  //
-  //   //generates random question
-  //   var numberGen = Math.floor(Math.random() * game.questions.length)
-  //   var randomQ = game.questions[numberGen]
-  //   $questionBox.text(randomQ.body)
-  //   console.log("before splicing", game.questions.length)
-  //   game.questions.splice(numberGen,1)
-  //   console.log("after splice", game.questions.length)
-  //
-  //   //generates answers to that random question
-  //   randomQ.incorrectAnswers.push(randomQ.answer)
-  //   var answerList = randomQ.incorrectAnswers
-  //   var indexGen = Math.floor(Math.random() * answerSet.length)
-  //   for(i = 0; i < answerSet.length; i += 1) {
-  //     answerSet[i].text(answerList[i])
-  //   }
-  //   turnCount += 1
-  // }
 
   var game = {
-    timer: $timer,
-    timeLeft: 10,
     askQuestion: function () {
       //generates random question
       var numberGen = Math.floor(Math.random() * game.questions.length)
       var randomQ = game.questions[numberGen]
       $questionBox.text(randomQ.body)
+
+      //removes the question so no questions repeat
       game.questions.splice(numberGen,1)
+
+      //pushes random answer to new array to determine if the player's answer was correct
       newArray.push(randomQ.answer)
 
       //generates answers to that random question
@@ -65,6 +48,9 @@
       }
       turnCount += 1
     },
+    timer: $timer,
+    timeLeft: 10,
+    //counts down timer by 1 second
     decrementTimer: function () {
       if(game.timeLeft > 0) {
         game.timeLeft -= 1
@@ -163,20 +149,27 @@
           if (turnCount === 0) {
 
             //starts timer at beginning of the game
-            window.setInterval(game.decrementTimer, 1000)
+            var interval = window.setInterval(game.decrementTimer, 1000)
 
             //calls function to generate random question and answers
             game.askQuestion()
         }
       })
     },
+    //randomly asks questions
     gameQuestions: function() {
       $answerOptions.on('click', function() {
+        //determines which player is up
         playerTurn()
+        //stores the user's click as an answer
         var userAnswer = $(this).text()
+        //runs if it isn't the start of the game
         if (turnCount > 0) {
+          //displays random question
           game.askQuestion()
+          //resets timer
           game.resetTimer()
+          //runs if the user selects the right answer
           if (userAnswer === newArray[newArray.length-2]) {
             if(currentPlayer === player1) {
                 hS += 1
@@ -190,8 +183,6 @@
           }
           game.declareWinner()
         }
-        console.log(turnCount)
-        console.log(currentPlayer)
       })
     },
     declareWinner: function() {
@@ -201,34 +192,23 @@
       } else {
         return
       }
-    }
+    },
+    // newGame: function() {
+    //   $new.on('click', function() {
+    //     $homeScore.text('0')
+    //     $visitorsScore.text('0')
+    //     turnCount = 0
+    //     for(i = 0; i < oldArray.length; i += 1) {
+    //       game.questions.push(oldArray[i])
+    //     }
+    //     console.log(oldArray)
+    //     console.log(turnCount)
+    //     console.log(game.questions)
+    //   })
+    // }
   }
   game.startGame()
   game.gameQuestions()
 
-
-
-//Start game and display first question
-  // if ($questionBox.text('Start Game')) {
-  //   $questionBox.on('click', function () {
-  //     //generates random question
-  //     window.setInterval(game.decrementTimer, 1000)
-  //     for(i = 0; i < game.questions.length; i += 1) {
-  //     var numberGen = Math.floor(Math.random() * game.questions.length)
-  //     var randomQ = game.questions[numberGen]
-  //     $questionBox.text(randomQ.body)
-  //     game.questions.splice(randomQ,1)
-  //     // console.log(randomQ)
-  //     // console.log(game.questions)
-  //
-  //     }
-  //     //generates answers to that random question
-  //     randomQ.incorrectAnswers.push(randomQ.answer)
-  //     var answerList = randomQ.incorrectAnswers
-  //     for(i = 0; i < answerSet.length; i += 1) {
-  //       answerSet[i].text(answerList[i])
-  //     }
-  //   })
-  // }
 
 // })

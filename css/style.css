@@ -83,35 +83,35 @@ body {
 
 #box1 {
   height: 35px;
-  width: 150px;
+  width: 25%;
   border: solid black 2px;
-  margin: 5px 10px 5px 335px;
   display: inline-block;
   text-align: center;
   font-size: 15px;
   vertical-align: top;
+  margin: 0 10px 0 10px;
 }
 
 #box2 {
   height: 35px;
-  width: 150px;
+  width: 25%;
   border: solid black 2px;
-  margin: 5px 95px 5px;
   display: inline-block;
   text-align: center;
   font-size: 15px;
   vertical-align: top;
+  margin: 0 10px 0 10px;
 }
 
 #box3 {
   height: 35px;
-  width: 150px;
+  width: 25%;
   border: solid black 2px;
-  margin: 5px 10px 5px;
   display: inline-block;
   text-align: center;
   font-size: 15px;
   vertical-align: top;
+  margin: 0 10px 0 10px;
 }
 
 #goal {
@@ -123,3 +123,18 @@ body {
   border-radius: 10px;
   opacity: .7;
 }
+
+.answers {
+  height: 60px;
+  width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 20px;
+}
+
+/*#new {
+  background-color: white;
+  color: black;
+  height: 35px;
+  width: 150px;
+}*/
