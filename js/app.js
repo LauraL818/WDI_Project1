@@ -36,9 +36,6 @@
   // }
 
   var game = {
-    currentPlayer: null,
-    player1: {},
-    player2: {},
     timer: $timer,
     timeLeft: 10,
     askQuestion: function () {
@@ -170,17 +167,33 @@
           game.askQuestion()
           game.resetTimer()
           if (userAnswer === newArray[newArray.length-2]) {
-            hS += 1
-            $homeScore.text(hS)
+            if (turnCount % 2 === 0) {
+              hS += 1
+              $homeScore.text(hS)
+            } else {
+              aS += 1
+              $visitorsScore.text(aS)
+            }
           } else {
             console.log('incorrect')
           }
+          game.declareWinner()
         }
+        console.log(turnCount)
       })
+    },
+    declareWinner: function() {
+      if ($homeScore.text() === '3' || $visitorsScore.text() === '3') {
+        console.log('winner')
+      } else {
+        return
+      }
     }
   }
   game.startGame()
   game.gameQuestions()
+
+
 
 //Start game and display first question
   // if ($questionBox.text('Start Game')) {
