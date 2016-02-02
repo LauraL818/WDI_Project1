@@ -11,25 +11,29 @@
   var answerSet = [$box1,$box2,$box3]
   var $answerOptions = $(".answerOption")
   var turnCount = 0
+  var newArray = []
+  var hS = 0
+  var aS = 0
 
-  function askQuestion () {
-
-    //generates random question
-    var numberGen = Math.floor(Math.random() * game.questions.length)
-    var randomQ = game.questions[numberGen]
-    $questionBox.text(randomQ.body)
-    console.log("before splicing", game.questions.length)
-    game.questions.splice(numberGen,1)
-    console.log("after splice", game.questions.length)
-
-    //generates answers to that random question
-    randomQ.incorrectAnswers.push(randomQ.answer)
-    var answerList = randomQ.incorrectAnswers
-    for(i = 0; i < answerSet.length; i += 1) {
-      answerSet[i].text(answerList[i])
-    }
-    turnCount += 1
-  }
+  // function askQuestion () {
+  //
+  //   //generates random question
+  //   var numberGen = Math.floor(Math.random() * game.questions.length)
+  //   var randomQ = game.questions[numberGen]
+  //   $questionBox.text(randomQ.body)
+  //   console.log("before splicing", game.questions.length)
+  //   game.questions.splice(numberGen,1)
+  //   console.log("after splice", game.questions.length)
+  //
+  //   //generates answers to that random question
+  //   randomQ.incorrectAnswers.push(randomQ.answer)
+  //   var answerList = randomQ.incorrectAnswers
+  //   var indexGen = Math.floor(Math.random() * answerSet.length)
+  //   for(i = 0; i < answerSet.length; i += 1) {
+  //     answerSet[i].text(answerList[i])
+  //   }
+  //   turnCount += 1
+  // }
 
   var game = {
     currentPlayer: null,
@@ -37,6 +41,23 @@
     player2: {},
     timer: $timer,
     timeLeft: 10,
+    askQuestion: function () {
+      //generates random question
+      var numberGen = Math.floor(Math.random() * game.questions.length)
+      var randomQ = game.questions[numberGen]
+      $questionBox.text(randomQ.body)
+      game.questions.splice(numberGen,1)
+      newArray.push(randomQ.answer)
+
+      //generates answers to that random question
+      randomQ.incorrectAnswers.push(randomQ.answer)
+      var answerList = randomQ.incorrectAnswers
+      var indexGen = Math.floor(Math.random() * answerSet.length)
+      for(i = 0; i < answerSet.length; i += 1) {
+        answerSet[i].text(answerList[i])
+      }
+      turnCount += 1
+    },
     decrementTimer: function () {
       if(game.timeLeft > 0) {
         game.timeLeft -= 1
@@ -138,16 +159,22 @@
             window.setInterval(game.decrementTimer, 1000)
 
             //calls function to generate random question and answers
-            askQuestion()
+            game.askQuestion()
         }
       })
     },
     gameQuestions: function() {
       $answerOptions.on('click', function() {
+        var userAnswer = $(this).text()
         if (turnCount > 0) {
-          console.log('clicked')
-          askQuestion()
+          game.askQuestion()
           game.resetTimer()
+          if (userAnswer === newArray[newArray.length-2]) {
+            hS += 1
+            $homeScore.text(hS)
+          } else {
+            console.log('incorrect')
+          }
         }
       })
     }
