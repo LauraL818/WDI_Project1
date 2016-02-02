@@ -13,6 +13,7 @@
   var turnCount = 0
 
   function askQuestion () {
+
     //generates random question
     var numberGen = Math.floor(Math.random() * game.questions.length)
     var randomQ = game.questions[numberGen]
@@ -38,11 +39,15 @@
     timeLeft: 10,
     decrementTimer: function () {
       if(game.timeLeft > 0) {
-      game.timeLeft -= 1
-      game.timer.text(game.timeLeft)
-     } else {
-      return;
-     }
+        game.timeLeft -= 1
+        game.timer.text(game.timeLeft)
+       } else {
+        return;
+       }
+    },
+    resetTimer: function() {
+      game.timer.text(10)
+      game.timeLeft = 10
     },
     questions: [{
       body: 'What is your favorite sport?',
@@ -138,10 +143,11 @@
       })
     },
     gameQuestions: function() {
-      $box1.on('click', function() {
+      $answerOptions.on('click', function() {
         if (turnCount > 0) {
           console.log('clicked')
           askQuestion()
+          game.resetTimer()
         }
       })
     }
