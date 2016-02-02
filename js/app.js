@@ -14,7 +14,17 @@
   var newArray = []
   var hS = 0
   var aS = 0
+  var currentPlayer
+  var player1 = 'Home'
+  var player2 = 'Visitors'
 
+  function playerTurn() {
+    if(turnCount % 2 === 0) {
+      currentPlayer = player2
+    } else {
+      currentPlayer = player1
+    }
+  }
   // function askQuestion () {
   //
   //   //generates random question
@@ -162,15 +172,16 @@
     },
     gameQuestions: function() {
       $answerOptions.on('click', function() {
+        playerTurn()
         var userAnswer = $(this).text()
         if (turnCount > 0) {
           game.askQuestion()
           game.resetTimer()
           if (userAnswer === newArray[newArray.length-2]) {
-            if (turnCount % 2 === 0) {
-              hS += 1
-              $homeScore.text(hS)
-            } else {
+            if(currentPlayer === player1) {
+                hS += 1
+                $homeScore.text(hS)
+            } else if (currentPlayer === player2){
               aS += 1
               $visitorsScore.text(aS)
             }
@@ -180,11 +191,13 @@
           game.declareWinner()
         }
         console.log(turnCount)
+        console.log(currentPlayer)
       })
     },
     declareWinner: function() {
       if ($homeScore.text() === '3' || $visitorsScore.text() === '3') {
         console.log('winner')
+        window.alert('Congrats ' + currentPlayer + ' you are the winner')
       } else {
         return
       }
