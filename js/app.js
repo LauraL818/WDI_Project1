@@ -47,11 +47,11 @@ var game = {
   timeLeft: 10,
   //counts down timer by 1 second
   decrementTimer: function () {
-    if(game.timeLeft > 0) {
+    if(game.timeLeft > 0 && $homeScore.text() !== '3' && $visitorsScore.text() !== '3' ) {
       game.timeLeft -= 1
       game.timer.text(game.timeLeft)
      } else {
-      return;
+      game.timer.text('0');
      }
   },
   resetTimer: function() {
@@ -162,6 +162,7 @@ var game = {
   },
   //randomly asks questions
   gameQuestions: function() {
+    if($homeScore.text() !== '3' && $visitorsScore.text() !== '3') {
       $answerOptions.on('click', function() {
         //determines which player is up
         game.playerTurn()
@@ -193,19 +194,20 @@ var game = {
           game.declareWinner()
         }
       })
+    }
   } ,
   declareWinner: function() {
     if ($homeScore.text() === '3' || $visitorsScore.text() === '3') {
       $questionBox.text('Congratulations ' + currentPlayer + ' you are the winner!!')
       $winner.show(2500)
       $new.show(3500)
-      game.resetTimer()
-      $
+      $box1.text('')
+      $box2.text('')
+      $box3.text('')
     } else {
       return
     }
   },
-
   //animate ball into goal with correct answer
   ballHome: function() {
     $ball.animate({
