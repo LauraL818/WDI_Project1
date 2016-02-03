@@ -1,14 +1,13 @@
-// $(function (){
   var $questionBox = $('#question')
   var $answerBox = $('.answers')
   var $box1 = $('#box1')
   var $box2 = $('#box2')
   var $box3 = $('#box3')
   var $score = $('.score')
+  var answerSet = [$box1,$box2,$box3]
   var $homeScore = $('#homeScore')
   var $visitorsScore = $('#visitorsScore')
   var $timer = $('#timer')
-  var answerSet = [$box1,$box2,$box3]
   var $answerOptions = $(".answerOption")
   var turnCount = 0
   var newArray = []
@@ -21,14 +20,7 @@
   var $netSpots = $('.net')
   var $hLights = $('.hL')
   var $vLights = $('.vL')
-  //
-  // function playerTurn() {
-  //   if(turnCount % 2 === 0) {
-  //     currentPlayer = player2
-  //   } else {
-  //     currentPlayer = player1
-  //   }
-  // }
+  var $winner = $('#winner')
 
   var game = {
     askQuestion: function () {
@@ -153,6 +145,7 @@
         ]
     }],
     startGame: function() {
+        $winner.hide()
         $questionBox.on('click', function () {
           //if it is the start of the game this function will run once
           if (turnCount === 0) {
@@ -176,7 +169,6 @@
         if (turnCount > 0) {
           //displays random question
           game.askQuestion()
-          //resets timer
           game.resetTimer()
           //runs if the user selects the right answer
           if (userAnswer === newArray[newArray.length-2]) {
@@ -203,7 +195,8 @@
     declareWinner: function() {
       if ($homeScore.text() === '3' || $visitorsScore.text() === '3') {
         console.log('winner')
-        window.alert('Congrats ' + currentPlayer + ' you are the winner')
+        $winner.show(2500)
+        // window.alert('Congrats ' + currentPlayer + ' you are the winner')
       } else {
         return
       }
@@ -268,6 +261,3 @@
   }
   game.startGame()
   game.gameQuestions()
-
-
-// })

@@ -1,7 +1,30 @@
 body {
   background-image: url("http://download.4-designer.com/files/20130106/Football-theme-Image-03-HD-Pictures-44828.jpg");
   background-size: cover;
+  text-align: center;
+  position: relative;
+  z-index: 0;
 }
+
+/*#heads {
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  margin: 380px -99px;
+  position: absolute;
+  background-color: black;
+  z-index: 1;
+}
+
+#tails {
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  margin: 380px -99px;
+  position: absolute;
+  background-color: black;
+  z-index: 1;
+}*/
 
 #timer {
   height: 50px;
@@ -173,6 +196,21 @@ body {
   border-radius: 10px;
   opacity: .7;
   text-align: center;
+  position: relative;
+  z-index: 0;
+}
+
+#winner {
+  height: 500px;
+  width: 500px;
+  background-image: url("http://www.seeklogo.net/wp-content/uploads/2013/06/world-cup-vector-logo.png");
+  background-position: center;
+  background-size: cover;
+  margin: 10px auto;
+  opacity: 100%;
+  text-align: center;
+  position: absolute;
+  z-index: 1;
 }
 
 .answers {
