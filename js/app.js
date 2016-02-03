@@ -200,6 +200,7 @@ var game = {
       $winner.show(2500)
       $new.show(3500)
       game.resetTimer()
+      $
     } else {
       return
     }
@@ -249,8 +250,8 @@ var game = {
       'opacity':1
     }).fadeIn(100)
   }
-
 }
+
 game.startGame()
 game.gameQuestions()
 $new.on('click', function() {window.location.reload()})
