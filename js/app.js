@@ -17,6 +17,8 @@
   var currentPlayer
   var player1 = 'Home'
   var player2 = 'Visitors'
+  var $ball = $('#ball')
+  var $netSpots = $('.net')
 
   function playerTurn() {
     if(turnCount % 2 === 0) {
@@ -172,9 +174,11 @@
           //runs if the user selects the right answer
           if (userAnswer === newArray[newArray.length-2]) {
             if(currentPlayer === player1) {
+                game.ballHome()
                 hS += 1
                 $homeScore.text(hS)
             } else if (currentPlayer === player2){
+              game.ballVisitors()
               aS += 1
               $visitorsScore.text(aS)
             }
@@ -193,6 +197,27 @@
         return
       }
     },
+    ballHome: function() {
+      $ball.animate({
+        'margin': '-250px 0 0 650px',
+        'opacity': '.5'
+      }).fadeOut(1000)
+      $ball.animate({
+        'margin': '0 0 300px 1100px',
+        'opacity':1
+      }).fadeIn(200)
+    },
+    ballVisitors: function() {
+      $ball.animate({
+        'margin': '-250px 0 0 650px',
+        'opacity': '.5'
+      }).fadeOut(1000)
+      $ball.animate({
+        'margin': '0 0 300px 200px',
+        'opacity':1
+      }).fadeIn(200)
+    }
+
     // newGame: function() {
     //   $new.on('click', function() {
     //     $homeScore.text('0')

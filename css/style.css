@@ -122,6 +122,7 @@ body {
   background-size: cover;
   border-radius: 10px;
   opacity: .7;
+  text-align: center;
 }
 
 .answers {
@@ -138,3 +139,20 @@ body {
   height: 35px;
   width: 150px;
 }*/
+
+#ball {
+  height: 150px;
+  width: 150px;
+  background-image: url("http://izzitso.com/wp-content/uploads/2016/01/vector-soccer-ball-clip-art-free-free-vector-for-free-download.png");
+  background-size:contain;
+  background-position: center;
+  margin-left: 150px;
+}
+
+.net {
+  display: inline-block;
+  border: 1px solid black;
+  height: 100px;
+  width: 100px;
+  margin: 5px auto;
+}
