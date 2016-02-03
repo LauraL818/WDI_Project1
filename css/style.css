@@ -206,10 +206,12 @@ body {
   background-image: url("http://www.seeklogo.net/wp-content/uploads/2013/06/world-cup-vector-logo.png");
   background-position: center;
   background-size: cover;
-  margin: 10px 464px;
+  margin: 0 auto;
   text-align: center;
   position: absolute;
   z-index: 1;
+  top: 42%;
+  right: 35%;
 }
 
 .answers {
@@ -233,7 +235,8 @@ body {
   background-image: url("http://izzitso.com/wp-content/uploads/2016/01/vector-soccer-ball-clip-art-free-free-vector-for-free-download.png");
   background-size:contain;
   background-position: center;
-  margin-left: 150px;
+  position: absolute;
+  left: 10%;
 }
 
 .net {

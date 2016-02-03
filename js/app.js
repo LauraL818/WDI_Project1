@@ -21,6 +21,7 @@
   var $hLights = $('.hL')
   var $vLights = $('.vL')
   var $winner = $('#winner')
+  var $goalBox = $('#goalBox')
 
   var game = {
     askQuestion: function () {
@@ -151,7 +152,7 @@
           if (turnCount === 0) {
 
             //starts timer at beginning of the game
-            var interval = window.setInterval(game.decrementTimer, 1000)
+             var interval = setInterval(game.decrementTimer, 1000)
 
             //calls function to generate random question and answers
             game.askQuestion()
@@ -160,44 +161,43 @@
     },
     //randomly asks questions
     gameQuestions: function() {
-      $answerOptions.on('click', function() {
-        //determines which player is up
-        game.playerTurn()
-        //stores the user's click as an answer
-        var userAnswer = $(this).text()
-        //runs if it isn't the start of the game
-        if (turnCount > 0) {
-          //displays random question
-          game.askQuestion()
-          game.resetTimer()
-          //runs if the user selects the right answer
-          if (userAnswer === newArray[newArray.length-2]) {
-            if(currentPlayer === player1) {
-                game.ballHome()
-                hS += 1
-                $homeScore.text(hS)
-            } else if (currentPlayer === player2){
-              game.ballVisitors()
-              aS += 1
-              $visitorsScore.text(aS)
+        $answerOptions.on('click', function() {
+          //determines which player is up
+          game.playerTurn()
+          //stores the user's click as an answer
+          var userAnswer = $(this).text()
+          //runs if it isn't the start of the game
+          if (turnCount > 0) {
+            //displays random question
+            game.askQuestion()
+            game.resetTimer()
+            //runs if the user selects the right answer
+            if (userAnswer === newArray[newArray.length-2]) {
+              if(currentPlayer === player1) {
+                  game.ballHome()
+                  hS += 1
+                  $homeScore.text(hS)
+              } else if (currentPlayer === player2){
+                game.ballVisitors()
+                aS += 1
+                $visitorsScore.text(aS)
+              }
+            } else {
+                if (currentPlayer === player1){
+                  game.missHome()
+              } else if (currentPlayer === player2) {
+                  game.missVisitors()
+              }
             }
-          } else {
-              if (currentPlayer === player1){
-                game.missHome()
-            } else if (currentPlayer === player2) {
-                game.missVisitors()
-            }
+            game.declareWinner()
           }
-          game.declareWinner()
-        }
-      })
-    },
+        })
+  } ,
     declareWinner: function() {
       if ($homeScore.text() === '3' || $visitorsScore.text() === '3') {
-        console.log('winner')
         $questionBox.text('Congratulations ' + currentPlayer + ' you are the winner!!')
         $winner.show(2500)
-        // window.alert('Congrats ' + currentPlayer + ' you are the winner')
+        game.resetTimer()
       } else {
         return
       }
@@ -205,7 +205,7 @@
     //animate ball into goal with correct answer
     ballHome: function() {
       $ball.animate({
-        'margin': '-250px 0 0 650px',
+        'margin': '-250px 0 0 500px',
         'opacity': '.5'
       }).fadeOut(500)
       $ball.animate({
@@ -216,7 +216,7 @@
     },
     ballVisitors: function() {
       $ball.animate({
-        'margin': '-250px 0 0 650px',
+        'margin': '-250px 0 0 500px',
         'opacity': '.5'
       }).fadeOut(500)
       $ball.animate({
@@ -228,7 +228,7 @@
     //animate ball away from goal with incorrect answer
     missHome: function() {
       $ball.animate({
-        'margin': '-400px 0 0 1100px',
+        'margin': '-400px 0 0 1200px',
         'opacity': '.5'
       }).fadeOut(500)
       $ball.animate({
@@ -238,11 +238,11 @@
     },
     missVisitors: function () {
       $ball.animate({
-        'margin': '-300px 0 0 200px',
+        'margin': '-500px 0 0 -100px',
         'opacity': '.5'
       }).fadeOut(500)
       $ball.animate({
-        'margin': '0 0 300px 200px',
+        'margin': '0 0 300px -100px',
         'opacity':1
       }).fadeIn(100)
     }
@@ -261,4 +261,9 @@
     // }
   }
   game.startGame()
-  game.gameQuestions()
+
+  if ($homeScore.text() !== '3' || $visitorsScore.text() !== '3') {
+    game.gameQuestions()
+  } else {
+    console.log('game over')
+  }
