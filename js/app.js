@@ -19,6 +19,8 @@
   var player2 = 'Visitors'
   var $ball = $('#ball')
   var $netSpots = $('.net')
+  var $hLights = $('.hL')
+  var $vLights = $('.vL')
 
   function playerTurn() {
     if(turnCount % 2 === 0) {
@@ -203,6 +205,7 @@
         return
       }
     },
+    //animate ball into goal with correct answer
     ballHome: function() {
       $ball.animate({
         'margin': '-250px 0 0 650px',
@@ -212,6 +215,7 @@
         'margin': '0 0 300px 1100px',
         'opacity':1
       }).fadeIn(100)
+      $hLights.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn()
     },
     ballVisitors: function() {
       $ball.animate({
@@ -222,7 +226,9 @@
         'margin': '0 0 300px 200px',
         'opacity':1
       }).fadeIn(100)
+        $vLights.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn()
     },
+    //animate ball away from goal with incorrect answer
     missHome: function() {
       $ball.animate({
         'margin': '-400px 0 0 1100px',
@@ -243,7 +249,6 @@
         'opacity':1
       }).fadeIn(100)
     }
-
     // newGame: function() {
     //   $new.on('click', function() {
     //     $homeScore.text('0')

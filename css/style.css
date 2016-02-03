@@ -7,10 +7,56 @@ body {
   height: 50px;
   width: 50px;
   border: solid black 2px;
-  margin: 5px auto;
+  margin: 0 auto;
   text-align: center;
   font-size: 40px;
   border-radius: 3px;
+}
+
+#lights {
+  height: 40px;
+  width: 840px;
+  margin: 0 auto;
+}
+
+#lightsHome {
+  border: 1px solid black;
+  height: 40px;
+  width: 160px;
+  float: left;
+  text-align: center;
+  background-color: black;
+}
+
+#lightsVisitor {
+  border: 1px solid black;
+  height: 40px;
+  width: 160px;
+  float: right;
+  text-align: center;
+  background-color: black;
+}
+
+.hL {
+  border: 1px solid black;
+  border-radius: 100px;
+  height: 35px;
+  width: 30px;
+  display: inline-block;
+  margin: 2px 0 auto;
+  padding: 0 5px;
+  background-color: yellow;
+}
+
+.vL {
+  border: 1px solid black;
+  border-radius: 100px;
+  height: 35px;
+  width: 30px;
+  display: inline-block;
+  margin: 2px 0 auto;
+  padding: 0 5px;
+  background-color: yellow;
 }
 
 #scoreboard {
