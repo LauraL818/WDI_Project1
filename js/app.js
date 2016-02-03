@@ -183,7 +183,13 @@
               $visitorsScore.text(aS)
             }
           } else {
-            console.log('incorrect')
+              if (currentPlayer === player1){
+                game.missHome()
+                console.log('incorrect')
+            } else if (currentPlayer === player2) {
+                game.missVisitors()
+                console.log('incorrect')
+            }
           }
           game.declareWinner()
         }
@@ -201,7 +207,7 @@
       $ball.animate({
         'margin': '-250px 0 0 650px',
         'opacity': '.5'
-      }).fadeOut(1000)
+      }).fadeOut(800)
       $ball.animate({
         'margin': '0 0 300px 1100px',
         'opacity':1
@@ -211,7 +217,27 @@
       $ball.animate({
         'margin': '-250px 0 0 650px',
         'opacity': '.5'
-      }).fadeOut(1000)
+      }).fadeOut(800)
+      $ball.animate({
+        'margin': '0 0 300px 200px',
+        'opacity':1
+      }).fadeIn(200)
+    },
+    missHome: function() {
+      $ball.animate({
+        'margin': '-400px 0 0 1100px',
+        'opacity': '.5'
+      }).fadeOut(800)
+      $ball.animate({
+        'margin': '0 0 300px 1100px',
+        'opacity':1
+      }).fadeIn(200)
+    },
+    missVisitors: function () {
+      $ball.animate({
+        'margin': '-300px 0 0 200px',
+        'opacity': '.5'
+      }).fadeOut(800)
       $ball.animate({
         'margin': '0 0 300px 200px',
         'opacity':1
