@@ -21,14 +21,14 @@
   var $netSpots = $('.net')
   var $hLights = $('.hL')
   var $vLights = $('.vL')
-
-  function playerTurn() {
-    if(turnCount % 2 === 0) {
-      currentPlayer = player2
-    } else {
-      currentPlayer = player1
-    }
-  }
+  //
+  // function playerTurn() {
+  //   if(turnCount % 2 === 0) {
+  //     currentPlayer = player2
+  //   } else {
+  //     currentPlayer = player1
+  //   }
+  // }
 
   var game = {
     askQuestion: function () {
@@ -36,17 +36,15 @@
       var numberGen = Math.floor(Math.random() * game.questions.length)
       var randomQ = game.questions[numberGen]
       $questionBox.text(randomQ.body)
-
       //removes the question so no questions repeat
       game.questions.splice(numberGen,1)
-
       //pushes random answer to new array to determine if the player's answer was correct
       newArray.push(randomQ.answer)
-
       //generates answers to that random question
-      randomQ.incorrectAnswers.push(randomQ.answer)
       var answerList = randomQ.incorrectAnswers
       var indexGen = Math.floor(Math.random() * answerSet.length)
+      //randomizes where answers display
+      randomQ.incorrectAnswers.splice(indexGen,0,randomQ.answer)
       for(i = 0; i < answerSet.length; i += 1) {
         answerSet[i].text(answerList[i])
       }
@@ -66,6 +64,13 @@
     resetTimer: function() {
       game.timer.text(10)
       game.timeLeft = 10
+    },
+    playerTurn: function () {
+      if(turnCount % 2 === 0) {
+        currentPlayer = player2
+      } else {
+        currentPlayer = player1
+      }
     },
     questions: [{
       body: 'What is your favorite sport?',
@@ -164,7 +169,7 @@
     gameQuestions: function() {
       $answerOptions.on('click', function() {
         //determines which player is up
-        playerTurn()
+        game.playerTurn()
         //stores the user's click as an answer
         var userAnswer = $(this).text()
         //runs if it isn't the start of the game
@@ -187,10 +192,8 @@
           } else {
               if (currentPlayer === player1){
                 game.missHome()
-                console.log('incorrect')
             } else if (currentPlayer === player2) {
                 game.missVisitors()
-                console.log('incorrect')
             }
           }
           game.declareWinner()
