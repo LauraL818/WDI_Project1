@@ -207,41 +207,41 @@
       $ball.animate({
         'margin': '-250px 0 0 650px',
         'opacity': '.5'
-      }).fadeOut(800)
+      }).fadeOut(500)
       $ball.animate({
         'margin': '0 0 300px 1100px',
         'opacity':1
-      }).fadeIn(200)
+      }).fadeIn(100)
     },
     ballVisitors: function() {
       $ball.animate({
         'margin': '-250px 0 0 650px',
         'opacity': '.5'
-      }).fadeOut(800)
+      }).fadeOut(500)
       $ball.animate({
         'margin': '0 0 300px 200px',
         'opacity':1
-      }).fadeIn(200)
+      }).fadeIn(100)
     },
     missHome: function() {
       $ball.animate({
         'margin': '-400px 0 0 1100px',
         'opacity': '.5'
-      }).fadeOut(800)
+      }).fadeOut(500)
       $ball.animate({
         'margin': '0 0 300px 1100px',
         'opacity':1
-      }).fadeIn(200)
+      }).fadeIn(100)
     },
     missVisitors: function () {
       $ball.animate({
         'margin': '-300px 0 0 200px',
         'opacity': '.5'
-      }).fadeOut(800)
+      }).fadeOut(500)
       $ball.animate({
         'margin': '0 0 300px 200px',
         'opacity':1
-      }).fadeIn(200)
+      }).fadeIn(100)
     }
 
     // newGame: function() {
