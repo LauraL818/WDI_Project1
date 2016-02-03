@@ -195,6 +195,7 @@
     declareWinner: function() {
       if ($homeScore.text() === '3' || $visitorsScore.text() === '3') {
         console.log('winner')
+        $questionBox.text('Congratulations ' + currentPlayer + ' you are the winner!!')
         $winner.show(2500)
         // window.alert('Congrats ' + currentPlayer + ' you are the winner')
       } else {
