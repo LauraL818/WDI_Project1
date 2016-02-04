@@ -1,14 +1,11 @@
+//global variables
 var $questionBox = $('#question')
-var $answerBox = $('.answers')
 var $box1 = $('#box1')
 var $box2 = $('#box2')
 var $box3 = $('#box3')
-var $score = $('.score')
 var answerSet = [$box1,$box2,$box3]
 var $homeScore = $('#homeScore')
 var $visitorsScore = $('#visitorsScore')
-var $timer = $('#timer')
-var $answerOptions = $(".answerOption")
 var turnCount = 0
 var newArray = []
 var hS = 0
@@ -17,60 +14,10 @@ var currentPlayer
 var player1 = 'Home'
 var player2 = 'Visitors'
 var $ball = $('#ball')
-var $netSpots = $('.net')
-var $hLights = $('.hL')
-var $vLights = $('.vL')
 var $winner = $('#winner')
 var $new = $('#new')
-var $goalSound = $('#gol')
 
 var game = {
-  askQuestion: function () {
-    //generates random question
-    var numberGen = Math.floor(Math.random() * game.questions.length)
-    var randomQ = game.questions[numberGen]
-    $questionBox.text(randomQ.body)
-    //removes the question so no questions repeat
-    game.questions.splice(numberGen,1)
-    //pushes random answer to new array to determine if the player's answer was correct
-    newArray.push(randomQ.answer)
-    //generates answers to that random question
-    var answerList = randomQ.incorrectAnswers
-    var indexGen = Math.floor(Math.random() * answerSet.length)
-    //randomizes where answers display
-    randomQ.incorrectAnswers.splice(indexGen,0,randomQ.answer)
-    for(i = 0; i < answerSet.length; i += 1) {
-      answerSet[i].text(answerList[i])
-    }
-    turnCount += 1
-  },
-  timer: $timer,
-  timeLeft: 10,
-  //counts down timer by 1 second
-  decrementTimer: function () {
-    if(game.timeLeft > 0 && $homeScore.text() !== '3' && $visitorsScore.text() !== '3' && turnCount !== 10) {
-      game.timeLeft -= 1
-      game.timer.text(game.timeLeft)
-    }  else {
-      game.timer.text('0');
-     }
-  },
-  resetTimer: function() {
-    game.timer.text(10)
-    game.timeLeft = 10
-  },
-  clearAnswers: function () {
-    $box1.text('')
-    $box2.text('')
-    $box3.text('')
-  },
-  playerTurn: function () {
-    if(turnCount % 2 === 0) {
-      currentPlayer = player2
-    } else {
-      currentPlayer = player1
-    }
-  },
   questions: [{
     body: 'What is your favorite sport?',
     answer:'football',
@@ -151,60 +98,97 @@ var game = {
       'Russell Wilson'
       ]
   }],
+  askQuestion: function () {
+    //generates random question, removes it from the mix, and pushes answer set to empty array
+    var numberGen = Math.floor(Math.random() * game.questions.length)
+    var randomQ = game.questions[numberGen]
+    $questionBox.text(randomQ.body)
+    game.questions.splice(numberGen,1)
+    newArray.push(randomQ.answer)
+    //generates and randomly displays answers
+    var answerList = randomQ.incorrectAnswers
+    var indexGen = Math.floor(Math.random() * answerSet.length)
+    randomQ.incorrectAnswers.splice(indexGen,0,randomQ.answer)
+    for(i = 0; i < answerSet.length; i += 1) {
+      answerSet[i].text(answerList[i])
+    }
+    turnCount += 1
+  },
+  timer: $('#timer'),
+  timeLeft: 10,
+  //counts down timer by 1 second
+  decrementTimer: function () {
+    if(game.timeLeft > 0 && $homeScore.text() !== '3' && $visitorsScore.text() !== '3' && turnCount !== 10) {
+      game.timeLeft -= 1
+      game.timer.text(game.timeLeft)
+    }  else {
+      game.timer.text('0');
+     }
+  },
+  resetTimer: function() {
+    game.timer.text(10)
+    game.timeLeft = 10
+  },
+  clearAnswers: function () {
+    $box1.text('')
+    $box2.text('')
+    $box3.text('')
+  },
+  playerTurn: function () {
+    if(turnCount % 2 === 0) {
+      currentPlayer = player2
+    } else {
+      currentPlayer = player1
+    }
+  },
+  //question set
+
   startGame: function() {
-      $winner.hide()
-      $new.hide()
-      $questionBox.on('click', function () {
-        $('#begin').trigger('play')
-        //if it is the start of the game this function will run once
-        if (turnCount === 0) {
-
-          //starts timer at beginning of the game
-           setInterval(game.decrementTimer, 1000)
-
-          //calls function to generate random question and answers
-          game.askQuestion()
+    $winner.hide()
+    $new.hide()
+    $questionBox.on('click', function () {
+      $('#begin').trigger('play')
+      if (turnCount === 0) {
+        setInterval(game.decrementTimer, 1000)
+        game.askQuestion()
       }
     })
   },
   //randomly asks questions
   gameQuestions: function() {
-      $('.answerOption').on('click', function() {
-        if($homeScore.text() !== '3' && $visitorsScore.text() !== '3') {
-          //determines which player is up
-          game.playerTurn()
-          //stores the user's click as an answer
-          var userAnswer = $(this).text()
-          //runs if it isn't the start of the game
-          if (turnCount > 0) {
-            //displays random question
-            game.askQuestion()
-            game.resetTimer()
-            //runs if the user selects the right answer
-            if (userAnswer === newArray[newArray.length-2]) {
-              $('#gol').trigger('play')
-              if(currentPlayer === player1) {
-                  game.ballHome()
-                  hS += 1
-                  $homeScore.text(hS)
-              } else if (currentPlayer === player2){
-                game.ballVisitors()
-                aS += 1
-                $visitorsScore.text(aS)
-              }
-            } else {
-                $('#boo').trigger('play')
-                if (currentPlayer === player1){
-                  game.missHome()
-              } else if (currentPlayer === player2) {
-                  game.missVisitors()
-              }
+    $('.answerOption').on('click', function() {
+      if($homeScore.text() !== '3' && $visitorsScore.text() !== '3') {
+        game.playerTurn()
+        //stores the user's click as an answer
+        var userAnswer = $(this).text()
+        if (turnCount > 0) {
+          game.askQuestion()
+          game.resetTimer()
+          //runs if the user selects the right answer
+          if (userAnswer === newArray[newArray.length-2]) {
+            $('#gol').trigger('play')
+            if(currentPlayer === player1) {
+                game.ballHome()
+                hS += 1
+                $homeScore.text(hS)
+            } else if (currentPlayer === player2){
+              game.ballVisitors()
+              aS += 1
+              $visitorsScore.text(aS)
             }
-            game.declareWinner()
+          } else {
+              // $('#boo').trigger('play')
+              if (currentPlayer === player1){
+                game.missHome()
+            } else if (currentPlayer === player2) {
+                game.missVisitors()
+            }
           }
+          game.declareWinner()
         }
-      })
-  } ,
+      }
+    })
+  },
   declareWinner: function() {
     if ($homeScore.text() === '3' || $visitorsScore.text() === '3') {
       $('#champions').trigger('play')
@@ -230,7 +214,7 @@ var game = {
       'margin': '0 0 300px 1100px',
       'opacity':1
     }).fadeIn(100)
-    $hLights.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn()
+    $('.hL').fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn()
   },
   ballVisitors: function() {
     $ball.animate({
@@ -241,7 +225,7 @@ var game = {
       'margin': '0 0 300px -100px',
       'opacity':1
     }).fadeIn(100)
-      $vLights.fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn()
+      $('.vL').fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn()
   },
   //animate ball away from goal with incorrect answer
   missHome: function() {
@@ -268,4 +252,5 @@ var game = {
 
 game.startGame()
 game.gameQuestions()
+//restart game
 $new.on('click', function() {window.location.reload()})
