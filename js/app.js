@@ -164,7 +164,7 @@ var game = {
   playerTurn: function () {
     if(turnCount % 2 === 0 && turnCount !== 0) {
       currentPlayer = player1
-      $('#player').text('Visitors Shoot')
+      $('#player').text('Visitor Shoots')
     } else if (turnCount % 2 !== 0 && turnCount !== 0) {
       currentPlayer = player2
       $('#player').text('Home Shoots')
