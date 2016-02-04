@@ -48,16 +48,21 @@ var game = {
   timeLeft: 10,
   //counts down timer by 1 second
   decrementTimer: function () {
-    if(game.timeLeft > 0 && $homeScore.text() !== '3' && $visitorsScore.text() !== '3' ) {
+    if(game.timeLeft > 0 && $homeScore.text() !== '3' && $visitorsScore.text() !== '3' && turnCount !== 10) {
       game.timeLeft -= 1
       game.timer.text(game.timeLeft)
-     } else {
+    }  else {
       game.timer.text('0');
      }
   },
   resetTimer: function() {
     game.timer.text(10)
     game.timeLeft = 10
+  },
+  clearAnswers: function () {
+    $box1.text('')
+    $box2.text('')
+    $box3.text('')
   },
   playerTurn: function () {
     if(turnCount % 2 === 0) {
@@ -150,6 +155,7 @@ var game = {
       $winner.hide()
       $new.hide()
       $questionBox.on('click', function () {
+        $('#begin').trigger('play')
         //if it is the start of the game this function will run once
         if (turnCount === 0) {
 
@@ -163,7 +169,7 @@ var game = {
   },
   //randomly asks questions
   gameQuestions: function() {
-      $answerOptions.on('click', function() {
+      $('.answerOption').on('click', function() {
         if($homeScore.text() !== '3' && $visitorsScore.text() !== '3') {
           //determines which player is up
           game.playerTurn()
@@ -176,7 +182,7 @@ var game = {
             game.resetTimer()
             //runs if the user selects the right answer
             if (userAnswer === newArray[newArray.length-2]) {
-              $goalSound.trigger('play')
+              $('#gol').trigger('play')
               if(currentPlayer === player1) {
                   game.ballHome()
                   hS += 1
@@ -187,6 +193,7 @@ var game = {
                 $visitorsScore.text(aS)
               }
             } else {
+                $('#boo').trigger('play')
                 if (currentPlayer === player1){
                   game.missHome()
               } else if (currentPlayer === player2) {
@@ -203,9 +210,11 @@ var game = {
       $questionBox.text('Congratulations ' + currentPlayer + ' you are the winner!!')
       $winner.show(2500)
       $new.show(3500)
-      $box1.text('')
-      $box2.text('')
-      $box3.text('')
+      game.clearAnswers()
+    } else if (turnCount === 10){
+        $questionBox.text('It\'s a draw')
+        $new.show(1500)
+        game.clearAnswers()
     } else {
       return
     }
