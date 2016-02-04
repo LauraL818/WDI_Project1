@@ -19,43 +19,35 @@ var $new = $('#new')
 
 var game = {
   questions: [{
-    body: 'What is your favorite sport?',
-    answer:'football',
+    body: 'Which team has won the most World Series?',
+    answer:'New York Yankees',
     incorrectAnswers: [
-    'baseball',
-    'soccer'
+    'Boston Red Sox',
+    'Chicago Cubs'
       ]
     },
   {
-    body: 'Who is your favorite athlete?',
-    answer: 'alex',
+    body: 'Which pitcher has the most wins?',
+    answer: 'Cy Young',
     incorrectAnswers: [
-      'dave',
-      'frank'
+      'Nolan Ryan',
+      'Randy Johnson'
       ]
   },
   {
-    body: 'Who won the Super Bowl in 2008?',
-    answer: 'patriots',
+    body: 'Who won Super Bowl XL?',
+    answer: 'Pittsburgh Steelers',
     incorrectAnswers: [
-      'saints',
-      'giants'
+      'New England Patriots',
+      'New York Giants'
       ]
   },
   {
-    body: 'Who won the World Series in 2005?',
-    answer: 'red sox',
+    body: 'Which coach has the most all-time NCAA Basketball wins?',
+    answer: 'Mike Krzyzewski',
     incorrectAnswers: [
-      'giants',
-      'yankees'
-      ]
-  },
-  {
-    body: 'Who won the Stanley Cup in 2001?',
-    answer: 'avalanche',
-    incorrectAnswers: [
-      'red wings',
-      'bruins'
+      'Jim Boeheim',
+      'Bob Knight'
       ]
   },
   {
@@ -71,7 +63,7 @@ var game = {
     answer: 'Miami Dolphins',
     incorrectAnswers: [
       'Denver Broncos',
-      'San Diego Chargers'
+      'Carolina Panthers'
       ]
   },
   {
@@ -83,7 +75,7 @@ var game = {
       ]
   },
   {
-    body: 'Who is the best player in the NBA right now?',
+    body: 'Who won the NBA regular season MVP last year?',
     answer: 'Steph Curry',
     incorrectAnswers: [
       'Lebron James',
@@ -91,7 +83,47 @@ var game = {
       ]
   },
   {
-    body: 'Who is the oldest QB in the NFL?',
+    body: 'Who won the first MLS Cup?',
+    answer: 'DC United',
+    incorrectAnswers: [
+      'LA Galaxy',
+      'Colorado Rapids'
+      ]
+  },
+  {
+    body: 'Who holds the record for most home runs in one season?',
+    answer: 'Barry Bonds',
+    incorrectAnswers: [
+      'Babe Ruth',
+      'Mark McGwire'
+      ]
+  },
+  {
+    body: 'Who won the Stanley Cup in 2001?',
+    answer: 'Colorado Avalanche',
+    incorrectAnswers: [
+      'Chicago Blackhawks',
+      'Detroit Red Wings'
+      ]
+  },
+  {
+    body: 'Which team has the most consecutive wins?',
+    answer: 'LA Lakers',
+    incorrectAnswers: [
+      'Golden State Warriors',
+      'Chicago Bulls'
+      ]
+  },
+  {
+    body: 'When was the first Super Bowl?',
+    answer: '1967',
+    incorrectAnswers: [
+      '1954',
+      '1961'
+      ]
+  },
+  {
+    body: 'Who is the oldest starting QB in the NFL?',
     answer: 'Peyton Manning',
     incorrectAnswers: [
       'Tom Brady',
@@ -118,7 +150,7 @@ var game = {
   timeLeft: 10,
   //counts down timer by 1 second
   decrementTimer: function () {
-    if(game.timeLeft > 0 && $homeScore.text() !== '3' && $visitorsScore.text() !== '3' && turnCount !== 10) {
+    if(game.timeLeft > 0 && $homeScore.text() !== '3' && $visitorsScore.text() !== '3' && turnCount < 14) {
       game.timeLeft -= 1
       game.timer.text(game.timeLeft)
     }  else {
@@ -129,34 +161,36 @@ var game = {
     game.timer.text(10)
     game.timeLeft = 10
   },
-  clearAnswers: function () {
-    $box1.text('')
-    $box2.text('')
-    $box3.text('')
-  },
   playerTurn: function () {
-    if(turnCount % 2 === 0) {
-      currentPlayer = player2
-    } else {
+    if(turnCount % 2 === 0 && turnCount !== 0) {
       currentPlayer = player1
+      $('#player').text('Visitors Shoot')
+    } else if (turnCount % 2 !== 0 && turnCount !== 0) {
+      currentPlayer = player2
+      $('#player').text('Home Shoots')
     }
   },
-  //question set
-
+  stopAudio: function () {
+    $('#gol').trigger('pause')
+    $('#begin').trigger('pause')
+  },
   startGame: function() {
     $winner.hide()
     $new.hide()
     $questionBox.on('click', function () {
-      $('#begin').trigger('play')
+      $('#begin').trigger('play').animate({volume:0}, 2500)
       if (turnCount === 0) {
         setInterval(game.decrementTimer, 1000)
         game.askQuestion()
+        game.playerTurn()
       }
+      turnCount += 1
     })
   },
   //randomly asks questions
   gameQuestions: function() {
     $('.answerOption').on('click', function() {
+      game.stopAudio()
       if($homeScore.text() !== '3' && $visitorsScore.text() !== '3') {
         game.playerTurn()
         //stores the user's click as an answer
@@ -177,7 +211,6 @@ var game = {
               $visitorsScore.text(aS)
             }
           } else {
-              // $('#boo').trigger('play')
               if (currentPlayer === player1){
                 game.missHome()
             } else if (currentPlayer === player2) {
@@ -191,20 +224,23 @@ var game = {
   },
   declareWinner: function() {
     if ($homeScore.text() === '3' || $visitorsScore.text() === '3') {
-      $('#champions').trigger('play')
-      $questionBox.text('Congratulations ' + currentPlayer + ' you are the winner!!')
+      game.stopAudio()
+      $('#champions').trigger('play').animate({volume:0}, 8000)
+      $questionBox.text('Congratulations ' + currentPlayer + ' you won the match!')
       $winner.show(2500)
       $new.show(3500)
       game.clearAnswers()
-    } else if (turnCount === 10){
+      $('#player').text('')
+    } else if (turnCount === 15) {
         $questionBox.text('It\'s a draw')
         $new.show(1500)
         game.clearAnswers()
+        $('#player').text('')
     } else {
       return
     }
   },
-  //animate ball into goal with correct answer
+  //animates ball into goal with correct answer
   ballHome: function() {
     $ball.animate({
       'margin': '-250px 0 0 600px',
@@ -247,9 +283,14 @@ var game = {
       'margin': '0 0 300px -100px',
       'opacity':1
     }).fadeIn(100)
+  },
+  clearAnswers: function () {
+    $box1.text('')
+    $box2.text('')
+    $box3.text('')
   }
 }
-
+//start game
 game.startGame()
 game.gameQuestions()
 //restart game

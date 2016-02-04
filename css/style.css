@@ -46,17 +46,8 @@ body {
 #lightsHome {
   border: 1px solid black;
   height: 40px;
-  width: 160px;
+  width: 20%;
   float: left;
-  text-align: center;
-  background-color: black;
-}
-
-#lightsVisitor {
-  border: 1px solid black;
-  height: 40px;
-  width: 160px;
-  float: right;
   text-align: center;
   background-color: black;
 }
@@ -74,6 +65,15 @@ body {
   background-position: center;
 }
 
+#lightsVisitor {
+  border: 1px solid black;
+  height: 40px;
+  width: 20%;
+  float: right;
+  text-align: center;
+  background-color: black;
+}
+
 .vL {
   border: 1px solid black;
   border-radius: 100px;
@@ -87,13 +87,24 @@ body {
   background-position: center;
 }
 
+#player {
+  height: 43px;
+  width: 50%;
+  padding-top: 12px;
+  margin: 3px auto;
+  background-color: #006400;
+  color: white;
+  font-size: 20px;
+  border-radius: 1px;
+}
+
 #scoreboard {
   height: 60px;
   width: 800px;
-  border: solid black 2px;
   margin: 10px auto;
   padding: 20px;
   background-color: #006400;
+  border-radius: 3px;
 }
 
 #question {
@@ -117,6 +128,7 @@ body {
   margin: -70px 10px;
   text-align: center;
   font-weight: bold;
+  font-family: 'Merriweather', serif;
   color: white;
 }
 
@@ -140,6 +152,7 @@ body {
   margin: -70px 10px;
   text-align: center;
   font-weight: bold;
+  font-family: 'Merriweather', serif;
   color: white;
 }
 
@@ -156,36 +169,54 @@ body {
 }
 
 #box1 {
-  height: 35px;
+  height: 28px;
+  padding-top: 10px;
   width: 25%;
-  border: solid black 2px;
+  border-radius: 10px;
   display: inline-block;
   text-align: center;
   font-size: 15px;
+  font-weight: bold;
   vertical-align: top;
   margin: 0 10px 0 10px;
+  background-color: white;
+  opacity: .8;
+  color: #006400;
+  font-family: 'Merriweather', serif;
 }
 
 #box2 {
-  height: 35px;
+  height: 28px;
+  padding-top: 10px;
   width: 25%;
-  border: solid black 2px;
+  border-radius: 10px;
   display: inline-block;
   text-align: center;
   font-size: 15px;
+  font-weight: bold;
   vertical-align: top;
   margin: 0 10px 0 10px;
+  background-color: white;
+  opacity: .8;
+  color: #006400;
+  font-family: 'Merriweather', serif;
 }
 
 #box3 {
-  height: 35px;
+  height: 28px;
+  padding-top: 10px;
   width: 25%;
-  border: solid black 2px;
+  border-radius: 10px;
   display: inline-block;
   text-align: center;
   font-size: 15px;
+  font-weight: bold;
   vertical-align: top;
   margin: 0 10px 0 10px;
+  background-color: white;
+  opacity: .8;
+  color: #006400;
+  font-family: 'Merriweather', serif;
 }
 
 #goal {
@@ -217,17 +248,23 @@ body {
 .answers {
   height: 60px;
   width: 800px;
-  margin: 0 auto;
+  margin: -10px auto;
   text-align: center;
   padding-top: 20px;
 }
 
 #new {
-  background-color: white;
-  color: black;
-  height: 35px;
+  background-color: #1E601E;
+  opacity: 1;
+  border: 4px solid rgba(255, 255, 0, 0.87);
+  height: 30px;
   width: 150px;
   margin: 0 auto;
+  border-radius: 15px;
+  color: white;
+  position: relative;
+  padding-top: 10px;
+  margin-top: -14px;
 }
 
 #ball {
@@ -238,12 +275,4 @@ body {
   background-position: center;
   position: absolute;
   left: 10%;
-}
-
-.net {
-  display: inline-block;
-  border: 1px solid black;
-  height: 100px;
-  width: 100px;
-  margin: 5px auto;
 }
