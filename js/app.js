@@ -207,6 +207,7 @@ var game = {
   } ,
   declareWinner: function() {
     if ($homeScore.text() === '3' || $visitorsScore.text() === '3') {
+      $('#champions').trigger('play')
       $questionBox.text('Congratulations ' + currentPlayer + ' you are the winner!!')
       $winner.show(2500)
       $new.show(3500)

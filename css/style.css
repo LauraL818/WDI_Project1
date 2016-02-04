@@ -2,6 +2,7 @@ body {
   background-image: url("../assets/background.png");
   background-size: cover;
   text-align: center;
+  padding: 0;
   position: relative;
   z-index: 0;
 }
