@@ -78,6 +78,7 @@ body {
   background-color: #006400;
   color: white;
   font-size: 20px;
+  text-shadow: black 2px 2px;
   border-radius: 1px;
   font-family: 'Merriweather', serif;
 }
@@ -112,6 +113,7 @@ body {
   margin: -70px 10px;
   text-align: center;
   font-weight: bold;
+  text-shadow: black 2px 2px;
   font-family: 'Merriweather', serif;
   color: white;
 }
@@ -136,6 +138,7 @@ body {
   margin: -70px 10px;
   text-align: center;
   font-weight: bold;
+  text-shadow: black 2px 2px;
   font-family: 'Merriweather', serif;
   color: white;
 }
@@ -246,6 +249,7 @@ body {
   margin: 0 auto;
   border-radius: 15px;
   color: white;
+  text-shadow: black 2px 2px;
   position: relative;
   padding-top: 10px;
   margin-top: -14px;
