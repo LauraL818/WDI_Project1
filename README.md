@@ -1,21 +1,39 @@
-# Project Name  
+# Long Shot
 
 No installation necessary. Follow this link to start playing (game link)  
+
 ## Game Summary
-Put your sports knowledge to the test with (Game Name). Answer correctly and bask in the glory of the cheers. Answer incorrectly and endure the relentless boos. First player to 10 goals wins ultimate sports bragging rights.
+Put your sports knowledge to the test with the ultimate sports trivia game - Long Shot. Two players take turns answering a variety of sports questions until one player scores three goals and comes out victorious.
 
 ## Rules
-* Two players will take turns answering sports trivia questions (choose who starts with coin toss?)
+* Player one clicks on the box in the center of the scoreboard to start the match
 
-* The questions will appear in the middle of the scoreboard and the player will have 10 seconds to choose from from three answers
+* Two players take turns answering sports trivia questions (the top of the scoreboard indicates whose turn it is)
 
-* If the player answers the question correctly, they will score a goal and receive one point
+* The questions appear in the middle of the scoreboard and the player who is up has 15 seconds to choose from three possible answers
 
-* If the player answers the question incorrectly, they will not score a goal and their points will remain at the same number  
+* If the player answers the question correctly, they   score a goal and receive one point
 
-* The players will switch off turns answering questions until one player reaches 10 points   
+* If the player answers the question incorrectly, they do not score a goal and their points remain the same
 
-* When a player reaches 10 points, they win the match and a new game can be played
+* The players switch off answering questions until one player reaches 3 points   
+
+* When a player reaches 3 points, they win the match and a new game can be played
+
+* If no player reaches 3 points by the time the questions run out, the match is deemed a draw and the players have the option of starting a new game
 
 ## Wireframe
 ![Project Outline](/assets/wireframe.png)
+
+## Technologies/Frameworks  
+* HTML
+* CSS
+* Object-Oriented JavaScript
+* jQuery
+
+## Future Improvements  
+* Player turn switches when timer reaches 0
+* Goal sound plays consistently with each correct answer
+* Add multiple rounds to create a tournament feel to the game
+* Improve graphics such as adding a goalie and the option for the user to choose a real soccer player
+* Make the game responsive
