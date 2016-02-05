@@ -18,6 +18,7 @@ var $winner = $('#winner')
 var $new = $('#new')
 
 var game = {
+  //question set
   questions: [{
     body: 'Which team has won the most World Series?',
     answer:'New York Yankees',
@@ -123,6 +124,46 @@ var game = {
       ]
   },
   {
+    body: 'Who is the number one female tennis player in the world?',
+    answer: 'Serena Williams',
+    incorrectAnswers: [
+      'Maria Sharapova',
+      'Venus Williams'
+      ]
+  },
+  {
+    body: 'Who is the commissioner of the NFL?',
+    answer: 'Roger Goodell',
+    incorrectAnswers: [
+      'Jerry Jones',
+      'John Elway'
+      ]
+  },
+  {
+    body: 'Who won the Heisman Trophy in 2015?',
+    answer: 'Derrick Henry',
+    incorrectAnswers: [
+      'Christian McCaffery',
+      'Jameis Winston'
+      ]
+  },
+  {
+    body: 'Where is Rodger Federer from?',
+    answer: 'Switzerland',
+    incorrectAnswers: [
+      'Spain',
+      'Portugal'
+      ]
+  },
+  {
+    body: 'Who is currently the fastest man in the world?',
+    answer: 'Usain Bolt',
+    incorrectAnswers: [
+      'Tyson Gay',
+      'Michael Phelps'
+      ]
+  },
+  {
     body: 'Who is the oldest starting QB in the NFL?',
     answer: 'Peyton Manning',
     incorrectAnswers: [
@@ -131,7 +172,7 @@ var game = {
       ]
   }],
   askQuestion: function () {
-    //generates random question, removes it from the mix, and pushes answer set to empty array
+    //generates random question, removes it from the mix, and pushes answer set to newArray
     var numberGen = Math.floor(Math.random() * game.questions.length)
     var randomQ = game.questions[numberGen]
     $questionBox.text(randomQ.body)
@@ -146,21 +187,22 @@ var game = {
     }
     turnCount += 1
   },
+  //sets and counts down timer by 1 second
   timer: $('#timer'),
-  timeLeft: 10,
-  //counts down timer by 1 second
+  timeLeft: 15,
   decrementTimer: function () {
-    if(game.timeLeft > 0 && $homeScore.text() !== '3' && $visitorsScore.text() !== '3' && turnCount < 14) {
+    if(game.timeLeft > 0 && $homeScore.text() !== '3' && $visitorsScore.text() !== '3' && turnCount < 20) {
       game.timeLeft -= 1
       game.timer.text(game.timeLeft)
-    }  else {
+    } else {
       game.timer.text('0');
-     }
+    }
   },
   resetTimer: function() {
     game.timer.text(10)
-    game.timeLeft = 10
+    game.timeLeft = 15
   },
+  //determines which player is up
   playerTurn: function () {
     if(turnCount % 2 === 0 && turnCount !== 0) {
       currentPlayer = player1
@@ -170,10 +212,7 @@ var game = {
       $('#player').text('Home Shoots')
     }
   },
-  stopAudio: function () {
-    $('#gol').trigger('pause')
-    $('#begin').trigger('pause')
-  },
+  //starts game when question box is clicked
   startGame: function() {
     $winner.hide()
     $new.hide()
@@ -190,7 +229,7 @@ var game = {
   //randomly asks questions
   gameQuestions: function() {
     $('.answerOption').on('click', function() {
-      game.stopAudio()
+      //will randomly display questions as long as the a player has scored 3 times and won
       if($homeScore.text() !== '3' && $visitorsScore.text() !== '3') {
         game.playerTurn()
         //stores the user's click as an answer
@@ -222,23 +261,22 @@ var game = {
       }
     })
   },
+  //delares winner, resets timer and scores, and allows players to play another game
   declareWinner: function() {
     if ($homeScore.text() === '3' || $visitorsScore.text() === '3') {
-      game.stopAudio()
+      $('#gol').trigger('pause')
       $('#champions').trigger('play').animate({volume:0}, 8000)
       $questionBox.text('Congratulations ' + currentPlayer + ' you won the match!')
       $winner.show(2500)
       $new.show(3500)
       game.clearAnswers()
       $('#player').text('')
-    } else if (turnCount === 15) {
+    } else if (turnCount === 20) {
         $questionBox.text('It\'s a draw')
         $new.show(1500)
         game.clearAnswers()
         $('#player').text('')
-    } else {
-      return
-    }
+    } 
   },
   //animates ball into goal with correct answer
   ballHome: function() {
@@ -263,7 +301,7 @@ var game = {
     }).fadeIn(100)
       $('.vL').fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn()
   },
-  //animate ball away from goal with incorrect answer
+  //animates ball away from goal with incorrect answer
   missHome: function() {
     $ball.animate({
       'margin': '-400px 0 0 1200px',
@@ -290,8 +328,9 @@ var game = {
     $box3.text('')
   }
 }
-//start game
+
+//call function to run game
 game.startGame()
 game.gameQuestions()
-//restart game
+//restarts game
 $new.on('click', function() {window.location.reload()})
