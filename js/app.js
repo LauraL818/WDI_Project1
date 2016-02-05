@@ -18,7 +18,7 @@ var $winner = $('#winner')
 var $new = $('#new')
 
 var game = {
-  //question set
+  //question and answer set
   questions: [{
     body: 'Which team has won the most World Series?',
     answer:'New York Yankees',
@@ -172,7 +172,7 @@ var game = {
       ]
   }],
   askQuestion: function () {
-    //generates random question, removes it from the mix, and pushes answer set to newArray
+    //generates random question, removes it from the mix so it can't be repeated, and pushes answer set to newArray
     var numberGen = Math.floor(Math.random() * game.questions.length)
     var randomQ = game.questions[numberGen]
     $questionBox.text(randomQ.body)
@@ -226,10 +226,10 @@ var game = {
       turnCount += 1
     })
   },
-  //randomly asks questions
   gameQuestions: function() {
     $('.answerOption').on('click', function() {
-      //will randomly display questions as long as the a player has scored 3 times and won
+      // game function - will display questions and answers as long as it is not the
+      // first turn of the game and a player has not scored 3 times
       if($homeScore.text() !== '3' && $visitorsScore.text() !== '3') {
         game.playerTurn()
         //stores the user's click as an answer
@@ -249,6 +249,7 @@ var game = {
               aS += 1
               $visitorsScore.text(aS)
             }
+          //runs if the player selects an incorrect answer
           } else {
               if (currentPlayer === player1){
                 game.missHome()
@@ -265,8 +266,9 @@ var game = {
   declareWinner: function() {
     if ($homeScore.text() === '3' || $visitorsScore.text() === '3') {
       $('#gol').trigger('pause')
-      $('#champions').trigger('play').animate({volume:0}, 8000)
+      $('#champions').trigger('play').animate({volume:0}, 9000)
       $questionBox.text('Congratulations ' + currentPlayer + ' you won the match!')
+      //winner and restart boxes appear after a player has won
       $winner.show(2500)
       $new.show(3500)
       game.clearAnswers()
@@ -329,7 +331,7 @@ var game = {
   }
 }
 
-//call function to run game
+//call functions to run game
 game.startGame()
 game.gameQuestions()
 //restarts game
