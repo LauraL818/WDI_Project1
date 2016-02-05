@@ -12,7 +12,7 @@ var hS = 0
 var aS = 0
 var currentPlayer
 var player1 = 'Home'
-var player2 = 'Visitors'
+var player2 = 'Visitor'
 var $ball = $('#ball')
 var $winner = $('#winner')
 var $new = $('#new')
