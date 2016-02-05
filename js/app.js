@@ -156,7 +156,7 @@ var game = {
       ]
   },
   {
-    body: 'Who is currently the fastest man in the world?',
+    body: 'Who is currently the fastest runner in the world?',
     answer: 'Usain Bolt',
     incorrectAnswers: [
       'Tyson Gay',
@@ -199,7 +199,7 @@ var game = {
     }
   },
   resetTimer: function() {
-    game.timer.text(10)
+    game.timer.text(15)
     game.timeLeft = 15
   },
   //determines which player is up
@@ -276,7 +276,7 @@ var game = {
         $new.show(1500)
         game.clearAnswers()
         $('#player').text('')
-    } 
+    }
   },
   //animates ball into goal with correct answer
   ballHome: function() {
