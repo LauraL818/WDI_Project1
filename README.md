@@ -1,6 +1,6 @@
 # Long Shot
 
-No installation necessary. Follow this link to start playing (game link)  
+No installation necessary. Follow this link to start playing: http://laural818.github.io/WDI_Project1/
 
 ## Game Summary
 Put your sports knowledge to the test with the ultimate sports trivia game - Long Shot. Two players take turns answering a variety of sports questions until one player scores three goals and comes out victorious.
